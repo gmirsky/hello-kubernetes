@@ -1,3 +1,4 @@
 # Dependency directories and files
 node_modules/
 package-lock.json
+!/src/app/package-lock.json
