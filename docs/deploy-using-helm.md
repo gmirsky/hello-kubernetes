@@ -8,9 +8,11 @@ The `hello-kubernetes` Helm chart can be used to deploy the `hello-kubernetes` a
 
 ## Prerequisites
 
-- [Helm 3](https://v3.helm.sh/)
+- [Helm 4](https://helm.sh/docs/intro/install/)
 
 If you are using the [VS Code Remote Containers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers) based development environment, all of the prerequisites will be available in the terminal.
+
+This chart uses the Helm v2 chart API (`apiVersion: v2`) and is compatible with Helm 4.
 
 ## Configuration and installation
 

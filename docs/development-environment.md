@@ -8,7 +8,7 @@ The VS Code Terminal will run a Bash shell and make the following utilities will
 
 - curl
 - Docker cli
-- Helm 3.x
+- Helm 4.x
 - jq
 - kubectl 
 - vim
