@@ -1,6 +1,6 @@
 # Hello Kubernetes!
 
-[![Docker Image Version (latest semver)](https://img.shields.io/docker/v/gmirsky/hello-kubernetes?sort=semver)](https://hub.docker.com/repository/docker/gmirsky/hello-kubernetes) [![Docker Image Size (latest semver)](https://img.shields.io/docker/image-size/gmirsky/hello-kubernetes?sort=semver)](https://hub.docker.com/repository/docker/gmirsky/hello-kubernetes) [![Docker Pulls](https://img.shields.io/docker/pulls/gmirsky/hello-kubernetes)](https://hub.docker.com/repository/docker/gmirsky/hello-kubernetes)
+[![CI](https://github.com/paulbouwer/hello-kubernetes/actions/workflows/ci.yaml/badge.svg)](https://github.com/paulbouwer/hello-kubernetes/actions/workflows/ci.yaml) [![Docker Image Version (latest semver)](https://img.shields.io/docker/v/gmirsky/hello-kubernetes?sort=semver)](https://hub.docker.com/repository/docker/gmirsky/hello-kubernetes) [![Docker Image Size (latest semver)](https://img.shields.io/docker/image-size/gmirsky/hello-kubernetes?sort=semver)](https://hub.docker.com/repository/docker/gmirsky/hello-kubernetes) [![Docker Pulls](https://img.shields.io/docker/pulls/gmirsky/hello-kubernetes)](https://hub.docker.com/repository/docker/gmirsky/hello-kubernetes)
 
 This container image can be deployed on a Kubernetes cluster. It runs a web app, that displays the following:
 
@@ -9,6 +9,25 @@ This container image can be deployed on a Kubernetes cluster. It runs a web app,
 - container image details
 
 ![Hello world! from the hello-kubernetes image](hello-kubernetes.png)
+
+## Runtime and dependencies
+
+The application and container are currently built with the following software stack:
+
+- Node.js 26 (Alpine base image)
+- npm with deterministic install (`npm ci --omit=dev`)
+- Express `^5.2.1`
+- express-handlebars `^9.0.1`
+- Handlebars `^4.7.9`
+- Pino `^10.3.1`
+- pino-http `^11.0.0`
+
+Dependency and vulnerability status can be checked from `src/app` with:
+
+```bash
+npm outdated --json
+npm audit --json
+```
 
 ## Quick start
 
@@ -36,8 +55,7 @@ kubectl get svc hello-kubernetes-hello-world -n hello-kubernetes -o 'jsonpath={ 
 Deploy the `hello-kubernetes` app into the `hello-kubernetes` namespace with an "I just deployed this on Kubernetes!" message. The app is exposed via a public Load Balancer on port 80 by default - note that a LoadBalancer service typically only works in cloud provider based Kubernetes offerings.
 
 ```bash
-helm install --create-namespace --namespace hello-kubernetes custom-message ./hello-kubernetes \
-  --set message="I just deployed this on Kubernetes!"
+helm install --create-namespace --namespace hello-kubernetes custom-message ./hello-kubernetes --set message="This is a test of Kubernetes!"
 
 # get the LoadBalancer ip address.
 kubectl get svc hello-kubernetes-custom-message -n hello-kubernetes -o 'jsonpath={ .status.loadBalancer.ingress[0].ip }'

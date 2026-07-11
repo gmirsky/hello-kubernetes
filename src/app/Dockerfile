@@ -1,4 +1,4 @@
-FROM node:21-alpine
+FROM node:26-alpine
 
 ARG IMAGE_CREATE_DATE
 ARG IMAGE_VERSION
@@ -20,10 +20,12 @@ LABEL org.opencontainers.image.title="Hello Kubernetes!" \
 # Create app directory
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
+ENV NODE_ENV=production
 
 # Install app dependencies
 COPY package.json /usr/src/app/
-RUN npm install
+COPY package-lock.json /usr/src/app/
+RUN npm ci --omit=dev
 
 # Bundle app source
 COPY . /usr/src/app

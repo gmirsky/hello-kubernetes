@@ -1,6 +1,17 @@
 # Hello Kubernetes demo app
 
-A demo app that can be deployd to a Kubernetes cluster. It displays a message, and also namespace, pod, node and image details.
+A demo app that can be deployed to a Kubernetes cluster. It displays a message, and also namespace, pod, node and image details.
+
+## Software stack
+
+The app currently uses the following runtime and libraries:
+
+- Node.js 26
+- Express `^5.2.1`
+- express-handlebars `^9.0.1`
+- Handlebars `^4.7.9`
+- Pino `^10.3.1`
+- pino-http `^11.0.0`
 
 ## Paths
 

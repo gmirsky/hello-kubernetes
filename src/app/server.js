@@ -1,16 +1,16 @@
 const express = require('express');
-const exphbs  = require('express-handlebars');
+const { engine } = require('express-handlebars');
 const os = require("os");
 const fs = require('fs');
 
 const pino = require('pino');
-const expressPino = require('express-pino-logger');
+const pinoHttp = require('pino-http');
 const logger = pino({ level: process.env.LOG_LEVEL || 'info' });
-const expressLogger = expressPino({ logger });
+const expressLogger = pinoHttp({ logger });
 
 const app = express();
 app.use(expressLogger);
-app.engine('handlebars', exphbs({defaultLayout: 'main'}));
+app.engine('handlebars', engine({ defaultLayout: 'main' }));
 app.set('view engine', 'handlebars');
 
 // Configuration
@@ -77,6 +77,10 @@ logger.debug();
 logger.debug('Server');
 logger.debug('-----------------------------------------------------');
 
-app.listen(port, function () {
-  logger.info("Listening on: http://%s:%s", podName, port);
-});
+if (require.main === module) {
+  app.listen(port, function () {
+    logger.info("Listening on: http://%s:%s", podName, port);
+  });
+}
+
+module.exports = app;

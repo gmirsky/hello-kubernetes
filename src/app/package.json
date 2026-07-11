@@ -1,18 +1,23 @@
 {
   "name": "hello-kubernetes",
-  "version": "1.11",
+  "version": "1.12",
   "description": "Hello Kubernetes!",
   "author": "Gregory Mirsky",
   "license": "MIT",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "test": "jest --runInBand"
   },
   "dependencies": {
-    "express": "^4.17.1",
-    "express-handlebars": "^5.2.1",
-    "express-pino-logger": "^6.0.0",
-    "handlebars": "^4.7.7",
-    "pino": "^6.11.2"
+    "express": "^5.2.1",
+    "express-handlebars": "^9.0.1",
+    "handlebars": "^4.7.9",
+    "pino": "^10.3.1",
+    "pino-http": "^11.0.0"
+  },
+  "devDependencies": {
+    "jest": "^30.0.5",
+    "supertest": "^7.1.1"
   }
 }
