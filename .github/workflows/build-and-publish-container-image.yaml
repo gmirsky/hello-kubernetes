@@ -10,11 +10,15 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    permissions:
+      contents: read
+      packages: write
+
     if: startsWith(github.ref, 'refs/tags/v')
 
     env:
-      CONTAINER_REGISTRY: docker.io
-      CONTAINER_IMAGE: gmirsky/hello-kubernetes
+      CONTAINER_REGISTRY: ghcr.io
+      CONTAINER_IMAGE: ${{ github.repository_owner }}/hello-kubernetes
 
     steps:
 
@@ -45,18 +49,13 @@ jobs:
           docker tag $IMAGE:$IMAGE_VERSION $IMAGE:$IMAGE_MAJOR_VERSION.$IMAGE_MINOR_VERSION
 
       - name: Log into registry
-        if: ${{ secrets.DOCKERHUB_USERNAME != '' && secrets.DOCKERHUB_PASSWORD != '' }}
         uses: docker/login-action@v3
         with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_PASSWORD }}
-
-      - name: Skip registry push when DockerHub credentials are unavailable
-        if: ${{ secrets.DOCKERHUB_USERNAME == '' || secrets.DOCKERHUB_PASSWORD == '' }}
-        run: echo "Skipping push: DockerHub credentials are not configured for this repository."
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Push image and tags to registry
-        if: ${{ secrets.DOCKERHUB_USERNAME != '' && secrets.DOCKERHUB_PASSWORD != '' }}
         run: |
           docker push $IMAGE:$IMAGE_VERSION
           docker push $IMAGE:$IMAGE_MAJOR_VERSION
