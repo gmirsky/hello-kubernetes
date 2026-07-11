@@ -10,8 +10,12 @@ on:
 jobs:
 
   scan-and-report-vulnerabilities:
-    
+
     runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      security-events: write
 
     env:
       CONTAINER_REGISTRY: docker.io
@@ -20,29 +24,33 @@ jobs:
     steps:
 
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v5
 
       - name: Build image and version variables
+        id: vars
         run: |
-          echo "IMAGE=$CONTAINER_REGISTRY/$CONTAINER_IMAGE" >> $GITHUB_ENV
-          echo "IMAGE_VERSION=$(cat src/app/package.json | jq -r .version)" >> $GITHUB_ENV
-          
+          echo "image=$CONTAINER_REGISTRY/$CONTAINER_IMAGE" >> $GITHUB_OUTPUT
+          echo "version=$(cat src/app/package.json | jq -r .version)" >> $GITHUB_OUTPUT
+
       - name: Build image
-        run: | 
-          docker build --tag "$IMAGE:$IMAGE_VERSION" \
-            --build-arg IMAGE_VERSION="$IMAGE_VERSION" \
+        run: |
+          docker build --tag "${{ steps.vars.outputs.image }}:${{ steps.vars.outputs.version }}" \
+            --build-arg IMAGE_VERSION="${{ steps.vars.outputs.version }}" \
             --build-arg IMAGE_CREATE_DATE="`date -u +"%Y-%m-%dT%H:%M:%SZ"`" \
             --build-arg IMAGE_SOURCE_REVISION="`git rev-parse HEAD`" \
             --file src/app/Dockerfile src/app
-            
-      - name: Run Trivy vulnerability scanner
-        run: |
-          curl -L https://github.com/aquasecurity/trivy/releases/download/v0.19.2/trivy_0.19.2_Linux-64bit.tar.gz | tar xvzf - contrib trivy
-          chmod 755 trivy
-          mv trivy /usr/local/bin/trivy
-          trivy image --format template --template "@contrib/sarif.tpl" --output trivy-results.sarif $IMAGE:$IMAGE_VERSION
 
-      - name: Upload container results to GitHub Code Scanning
-        uses: github/codeql-action/upload-sarif@v1
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@v0.36.0
+        with:
+          scan-type: image
+          image-ref: ${{ steps.vars.outputs.image }}:${{ steps.vars.outputs.version }}
+          format: sarif
+          output: trivy-results.sarif
+          severity: HIGH,CRITICAL
+
+      - name: Upload Trivy scan results to GitHub Security tab
+        if: always()
+        uses: github/codeql-action/upload-sarif@v4
         with:
           sarif_file: trivy-results.sarif
