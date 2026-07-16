@@ -1,8 +1,8 @@
 # Hello Kubernetes!
 
-[![CI](https://github.com/paulbouwer/hello-kubernetes/actions/workflows/ci.yaml/badge.svg)](https://github.com/paulbouwer/hello-kubernetes/actions/workflows/ci.yaml) [![Container Registry](https://img.shields.io/badge/container-ghcr.io-blue)](https://github.com/paulbouwer/hello-kubernetes/pkgs/container/hello-kubernetes)
+[![CI](https://github.com/gmirsky/hello-kubernetes/actions/workflows/ci.yaml/badge.svg)](https://github.com/gmirsky/hello-kubernetes/actions/workflows/ci.yaml) [![Container Registry](https://img.shields.io/badge/container-ghcr.io-blue)](https://github.com/gmirsky/hello-kubernetes/pkgs/container/hello-kubernetes)
 
-Published container image: `ghcr.io/paulbouwer/hello-kubernetes`
+Published container image: `ghcr.io/gmirsky/hello-kubernetes`
 
 This container image can be deployed on a Kubernetes cluster. It runs a web app, that displays the following:
 

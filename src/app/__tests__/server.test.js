@@ -10,7 +10,7 @@ describe('hello-kubernetes app', () => {
     expect(res.text).toContain('namespace:');
     expect(res.text).toContain('pod:');
     expect(res.text).toContain('node:');
-    expect(res.text).toContain('ghcr.io/paulbouwer/hello-kubernetes:');
+    expect(res.text).toContain('ghcr.io/gmirsky/hello-kubernetes:');
   });
 
   test('GET /does-not-exist returns 404', async () => {

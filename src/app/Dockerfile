@@ -10,11 +10,11 @@ LABEL org.opencontainers.image.title="Hello Kubernetes!" \
       org.opencontainers.image.created=$IMAGE_CREATE_DATE \
       org.opencontainers.image.version=$IMAGE_VERSION \
       org.opencontainers.image.authors="Gregory Mirsky" \
-      org.opencontainers.image.url="https://github.com/paulbouwer/hello-kubernetes/pkgs/container/hello-kubernetes" \
-      org.opencontainers.image.documentation="https://github.com/paulbouwer/hello-kubernetes/blob/main/README.md" \
+      org.opencontainers.image.url="https://github.com/gmirsky/hello-kubernetes/pkgs/container/hello-kubernetes" \
+      org.opencontainers.image.documentation="https://github.com/gmirsky/hello-kubernetes/blob/main/README.md" \
       org.opencontainers.image.vendor="Gregory Mirsky" \
       org.opencontainers.image.licenses="MIT" \
-      org.opencontainers.image.source="https://github.com/paulbouwer/hello-kubernetes.git" \
+      org.opencontainers.image.source="https://github.com/gmirsky/hello-kubernetes.git" \
       org.opencontainers.image.revision=$IMAGE_SOURCE_REVISION 
 
 # Create app directory
