@@ -71,7 +71,7 @@ RUN curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/s
 
 # Install trivy
 RUN mkdir /tmp/trivy \
-    && curl -L https://github.com/aquasecurity/trivy/releases/download/v0.19.2/trivy_0.19.2_Linux-64bit.tar.gz | tar xvz -C /tmp/trivy -f - contrib trivy \
+    && curl -L https://github.com/aquasecurity/trivy/releases/download/v0.72.0/trivy_0.72.0_Linux-64bit.tar.gz | tar xvz -C /tmp/trivy -f - contrib trivy \
     && chmod +x /tmp/trivy/trivy \
     && mv /tmp/trivy/trivy /usr/local/bin/trivy \
     && mkdir -p /trivy/contrib \
