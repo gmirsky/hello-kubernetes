@@ -15,7 +15,7 @@ deployment:
   replicaCount: 3
   container:
     image:
-      repository: "vanapagan/hello-kubernetes"
+      repository: "ghcr.io/paulbouwer/hello-kubernetes"
       tag: "1.12" # uses chart appVersion if not provided
       pullPolicy: IfNotPresent
     port: 8080

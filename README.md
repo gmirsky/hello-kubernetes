@@ -1,6 +1,8 @@
 # Hello Kubernetes!
 
-[![CI](https://github.com/paulbouwer/hello-kubernetes/actions/workflows/ci.yaml/badge.svg)](https://github.com/paulbouwer/hello-kubernetes/actions/workflows/ci.yaml) [![Docker Image Version (latest semver)](https://img.shields.io/docker/v/gmirsky/hello-kubernetes?sort=semver)](https://hub.docker.com/repository/docker/gmirsky/hello-kubernetes) [![Docker Image Size (latest semver)](https://img.shields.io/docker/image-size/gmirsky/hello-kubernetes?sort=semver)](https://hub.docker.com/repository/docker/gmirsky/hello-kubernetes) [![Docker Pulls](https://img.shields.io/docker/pulls/gmirsky/hello-kubernetes)](https://hub.docker.com/repository/docker/gmirsky/hello-kubernetes)
+[![CI](https://github.com/paulbouwer/hello-kubernetes/actions/workflows/ci.yaml/badge.svg)](https://github.com/paulbouwer/hello-kubernetes/actions/workflows/ci.yaml) [![Container Registry](https://img.shields.io/badge/container-ghcr.io-blue)](https://github.com/paulbouwer/hello-kubernetes/pkgs/container/hello-kubernetes)
+
+Published container image: `ghcr.io/paulbouwer/hello-kubernetes`
 
 This container image can be deployed on a Kubernetes cluster. It runs a web app, that displays the following:
 
@@ -82,7 +84,7 @@ If you'd like to explore the various Helm chart configuration options, then read
 
 ### Building your own images
 
-If you'd like to build the `hello-kubernetes` container image yourself and reference from your own registry or DockerHub repository, then you can get more details on how to do this in the [Build and push container images](docs/build-and-push-container-images.md) documentation.
+If you'd like to build the `hello-kubernetes` container image yourself and reference it from your own container registry (including GHCR), then you can get more details on how to do this in the [Build and push container images](docs/build-and-push-container-images.md) documentation.
 
 ### Development environment
 
