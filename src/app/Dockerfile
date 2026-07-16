@@ -1,4 +1,17 @@
-FROM node:26-alpine
+FROM cgr.dev/chainguard/node:latest-dev AS build
+
+WORKDIR /usr/src/app
+ENV NODE_ENV=production
+
+# Install app dependencies
+COPY package.json /usr/src/app/
+COPY package-lock.json /usr/src/app/
+RUN npm ci --omit=dev
+
+# Bundle app source
+COPY . /usr/src/app
+
+FROM cgr.dev/chainguard/node:latest
 
 ARG IMAGE_CREATE_DATE
 ARG IMAGE_VERSION
@@ -17,18 +30,10 @@ LABEL org.opencontainers.image.title="Hello Kubernetes!" \
       org.opencontainers.image.source="https://github.com/gmirsky/hello-kubernetes.git" \
       org.opencontainers.image.revision=$IMAGE_SOURCE_REVISION 
 
-# Create app directory
-RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 ENV NODE_ENV=production
 
-# Install app dependencies
-COPY package.json /usr/src/app/
-COPY package-lock.json /usr/src/app/
-RUN npm ci --omit=dev
+COPY --from=build /usr/src/app /usr/src/app
 
-# Bundle app source
-COPY . /usr/src/app
-
-USER node
-CMD [ "npm", "start" ]
+USER 65532:65532
+CMD [ "server.js" ]

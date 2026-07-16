@@ -15,26 +15,26 @@ app.set('view engine', 'handlebars');
 
 // Configuration
 
-var port = process.env.PORT || 8080;
-var message = process.env.MESSAGE || 'Hello world!';
-var renderPathPrefix = (
+const port = process.env.PORT || 8080;
+const message = process.env.MESSAGE || 'Hello world!';
+const renderPathPrefix = (
   process.env.RENDER_PATH_PREFIX ? 
     '/' + process.env.RENDER_PATH_PREFIX.replace(/^[\\/]+/, '').replace(/[\\/]+$/, '') :
     ''
 );
-var handlerPathPrefix = (
+const handlerPathPrefix = (
   process.env.HANDLER_PATH_PREFIX ? 
     '/' + process.env.HANDLER_PATH_PREFIX.replace(/^[\\/]+/, '').replace(/[\\/]+$/, '') :
     ''
 );
 
-var namespace = process.env.KUBERNETES_NAMESPACE || '-';
-var podName = process.env.KUBERNETES_POD_NAME || os.hostname();
-var nodeName = process.env.KUBERNETES_NODE_NAME || '-';
-var nodeOS = os.type() + ' ' + os.release();
-var applicationVersion = JSON.parse(fs.readFileSync('package.json', 'utf8')).version;
-var containerImage = process.env.CONTAINER_IMAGE || 'ghcr.io/gmirsky/hello-kubernetes:' + applicationVersion
-var containerImageArch = JSON.parse(fs.readFileSync('info.json', 'utf8')).containerImageArch;
+const namespace = process.env.KUBERNETES_NAMESPACE || '-';
+const podName = process.env.KUBERNETES_POD_NAME || os.hostname();
+const nodeName = process.env.KUBERNETES_NODE_NAME || '-';
+const nodeOS = os.type() + ' ' + os.release();
+const applicationVersion = JSON.parse(fs.readFileSync('package.json', 'utf8')).version;
+const containerImage = process.env.CONTAINER_IMAGE || 'ghcr.io/gmirsky/hello-kubernetes:' + applicationVersion
+const containerImageArch = JSON.parse(fs.readFileSync('info.json', 'utf8')).containerImageArch;
 
 logger.debug();
 logger.debug('Configuration');
